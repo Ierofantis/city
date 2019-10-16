@@ -115,15 +115,7 @@ signup() {
                               <Button variant="primary" type="submit" onClick={() => this.signup()}>
                                   Submit
                                 </Button>
-                              {/* <Button variant="primary" type="submit" onClick={() => this.signup()}>
-                                  Submit
-                                </Button>
-                                <Button  onClick={() => this.signup()}>
-                                  Submit
-                                </Button>
-                                <Button  onClick={() => this.postLocation()}>
-                                  SubmitLat
-                                </Button>               */}
+                              
                           </div>
                         </div>
                       </div>

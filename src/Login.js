@@ -32,7 +32,9 @@ fetch('http://localhost:8080/api/users/signin', {
 }).then(function(data) {
   console.log('data',data.token)
   localStorage.setItem("token", data.token);  
-  props.history.push('/TheButton');
+    if(data.token !== undefined){
+    props.history.push('/TheButton');
+    }
  });
 }
 
@@ -49,7 +51,6 @@ fetch('http://localhost:8080/api/users/signin', {
     // Using jwt-decode npm package to decode the token
     if(this.getToken() !== 'undefined') {
     let answer = jwtDecode(this.getToken());
-    console.log(answer)
     return answer;
     }
     else{

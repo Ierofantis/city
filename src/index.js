@@ -8,11 +8,10 @@ import MainPage from './MainPage';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Link, Route } from 'react-router-dom';
 
-
 ReactDOM.render(
     <BrowserRouter>
     <div>
-      <Route path='/' component={MainPage}>
+    <Route path='/' component={MainPage}>
     </Route>
     <Route path='/TheButton' component={TheButton}> 
     </Route>
@@ -27,6 +26,5 @@ ReactDOM.render(
   </BrowserRouter>,
     document.getElementById('root')
   );
-
 serviceWorker.unregister();
 

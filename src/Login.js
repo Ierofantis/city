@@ -3,7 +3,8 @@ import "./App.css";
 import { ThemeProvider, createTheme, Row, Arwes, Col, Button } from "arwes";
 import { Form } from 'react-bootstrap';
 import * as jwtDecode from 'jwt-decode';
-import { geolocated } from "react-geolocated";
+
+import Loader from 'react-loader-spinner';
 
 export default class Login extends React.Component {
 
@@ -11,13 +12,30 @@ export default class Login extends React.Component {
     super(props);
     this.textInput = React.createRef(); 
     this.passInput = React.createRef(); 
+    this.state = {loading: false};
   }
+
+  componentDidMount(){
+    let auth = localStorage.getItem("token");
+     if(auth){
+       this.props.history.push('/TheButton');
+       }
+   }
 
 login(){
  
 let name = this.textInput.current.value;
 let password = this.passInput.current.value;
 let props = this.props;
+this.setState({ loading: true })
+setTimeout(
+  function() {
+      this.setState({loading: false});
+  }
+  .bind(this),
+  1000
+);
+
 
 fetch('http://localhost:8080/api/users/signin', {
   method: 'post',
@@ -29,6 +47,15 @@ fetch('http://localhost:8080/api/users/signin', {
     { name: name, password: password,
    })
  }).then(function(response) {
+  setTimeout(
+    function() {
+      if(response.status !== 200){
+       alert('Sorry, an error occured, try again later');
+       }
+    }
+    .bind(this),
+    1500
+);
   return response.json();
 }).then(function(data) {
   localStorage.setItem("token", data.token);  
@@ -75,6 +102,7 @@ fetch('http://localhost:8080/api/users/signin', {
               <Arwes animate show>
                 {anim => (
                     <React.Fragment>
+                       {this.state.loading === false ? (
                       <div style={{ padding: 20 }}>
                         <h1>Citizen</h1>
                         <p>You are not in danger</p>
@@ -103,6 +131,23 @@ fetch('http://localhost:8080/api/users/signin', {
                         </div>
                       </div>
                     </div>
+                       ):
+                       <div class="container" style={{ paddingTop: 190 }}>
+                       <div class="row">
+                       <div class="col-lg-4 col-md-4 col-xs-12">
+                       </div>
+                         <div class="col-lg-4 col-md-4 col-xs-12">
+                         <Loader
+                           type="Puff"
+                           color="#00BFFF"
+                           height={100}
+                           width={100}
+                           timeout={3000} //3 secs
+                         />
+                      </div>
+                    </div>
+                  </div>
+                  }  
                   </React.Fragment>
                 )}
               </Arwes>

@@ -7,6 +7,8 @@ import { createBrowserHistory } from 'history'
 import { withRouter } from 'react-router';
 import { Redirect } from 'react-router-dom';
 
+import Loader from 'react-loader-spinner'
+
 
 
 class App extends React.Component {
@@ -16,7 +18,15 @@ class App extends React.Component {
     this.textInput = React.createRef(); 
     this.passInput = React.createRef(); 
     this.emailInput = React.createRef(); 
+    this.state = {loading: false};
   }
+
+  componentDidMount(){
+    let auth = localStorage.getItem("token");
+     if(auth){
+       this.props.history.push('/TheButton');
+       }
+   }
 
 signup() {
 
@@ -24,6 +34,17 @@ signup() {
   let email = this.emailInput.current.value;
   let password = this.passInput.current.value;
   let props = this.props;
+
+  this.setState({ loading: true })
+  setTimeout(
+  function() {
+      this.setState({loading: false});
+  }
+  .bind(this),
+  1000
+  );
+
+
   fetch('http://localhost:8080/api/users', {
     method: 'post',
     headers: {
@@ -34,6 +55,15 @@ signup() {
      { name:name, email:email, password:password,
     })
   }).then(function(response) {
+    setTimeout(
+      function() {
+        if(response.status !== 200){
+         alert('Sorry, an error occured, try again later');
+         }
+      }
+      .bind(this),
+      1500
+  );
     return response.json();
   }).then(function(data) {
     localStorage.setItem("token", data.token);  
@@ -80,6 +110,7 @@ signup() {
               <Arwes animate show>
                 {anim => (
                     <React.Fragment>
+                       {this.state.loading === false ? (
                       <div style={{ padding: 20 }}>
                         <h1>Citizen</h1>
                         <p>You are not in danger</p>
@@ -118,6 +149,23 @@ signup() {
                         </div>
                       </div>
                     </div>
+                       ):
+                       <div class="container" style={{ paddingTop: 190 }}>
+                       <div class="row">
+                       <div class="col-lg-4 col-md-4 col-xs-12">
+                       </div>
+                         <div class="col-lg-4 col-md-4 col-xs-12">
+                         <Loader
+                           type="Puff"
+                           color="#00BFFF"
+                           height={100}
+                           width={100}
+                           timeout={3000} //3 secs
+                         />
+                      </div>
+                    </div>
+                  </div>
+                       }
                   </React.Fragment>
                 )}
               </Arwes>

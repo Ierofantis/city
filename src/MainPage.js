@@ -12,7 +12,12 @@ export default class MainPage extends React.Component {
   constructor(props) {
     super(props);
   }
-    
+  componentDidMount(){
+    let auth = localStorage.getItem("token");
+     if(auth){
+       this.props.history.push('/TheButton');
+       }
+   }
     goToLogin(){
      this.props.history.push('/Login');
     }

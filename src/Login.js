@@ -3,6 +3,7 @@ import "./App.css";
 import { ThemeProvider, createTheme, Row, Arwes, Col, Button } from "arwes";
 import { Form } from 'react-bootstrap';
 import * as jwtDecode from 'jwt-decode';
+import { geolocated } from "react-geolocated";
 
 export default class Login extends React.Component {
 
@@ -30,8 +31,8 @@ fetch('http://localhost:8080/api/users/signin', {
  }).then(function(response) {
   return response.json();
 }).then(function(data) {
-  console.log('data',data.token)
   localStorage.setItem("token", data.token);  
+  localStorage.setItem("name", name);
     if(data.token !== undefined){
     props.history.push('/TheButton');
     }

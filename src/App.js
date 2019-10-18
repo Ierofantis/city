@@ -34,11 +34,10 @@ signup() {
      { name:name, email:email, password:password,
     })
   }).then(function(response) {
-    console.log(response)
     return response.json();
   }).then(function(data) {
-    console.log('data',data.token)
     localStorage.setItem("token", data.token);  
+    localStorage.setItem("name", name);
     props.history.push('/Login/');
   });
 }
@@ -64,7 +63,6 @@ signup() {
     // Using jwt-decode npm package to decode the token
     if(this.getToken() !== 'undefined') {
     let answer = jwtDecode(this.getToken());
-    console.log(answer)
     return answer;
     }
     else{

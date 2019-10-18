@@ -3,8 +3,9 @@ import "./App.css";
 import { ThemeProvider, createTheme, Row, Arwes, Col, Button } from "arwes";
 import { Form } from 'react-bootstrap';
 import * as jwtDecode from 'jwt-decode';
+import { geolocated } from "react-geolocated";
 
-export default class TheButton extends React.Component {
+class TheButton extends React.Component {
 
   constructor(props) {
     super(props);
@@ -19,12 +20,14 @@ componentDidMount(){
     }
 }
 
-postLocation(event){
-    let latitude =  "40.9356525";
-    let longitude = "24.4065584";
+postLocation(lon,lat){
+
+    let latitude =  lat.toString();
+    let longitude = lon.toString();
     let text = this.textInput.current.value;
-    let name = "nick"
-  fetch('http://localhost:8080/api/send/location', {
+    let name = localStorage.getItem("name");
+
+    fetch('http://localhost:8080/api/send/location', {
     method: 'post',
     headers: {
       'Accept': 'application/json',
@@ -36,14 +39,16 @@ postLocation(event){
     })
   }).then(function(response) {
     return response.json();
-  }).then(function(data) {
-    console.log('data',data)
-    localStorage.setItem("token", data.token);  
-  });
-  }
+  })
+}
 
   render() {
      return (
+      !this.props.isGeolocationAvailable ? (
+        <div>Your browser does not support Geolocation</div>
+    ) : !this.props.isGeolocationEnabled ? (
+        <div>Geolocation is not enabled</div>
+    ) : this.props.coords ? (
       <div className="App">
         <ThemeProvider theme={createTheme()}>
           <Row>
@@ -68,7 +73,7 @@ postLocation(event){
                                   <Form.Control ref={this.textInput} type="text" type="text" placeholder="i think that I am in danger..." />
                                 </Form.Group>
                               </Form>
-                              <Button variant="primary" type="submit" onClick={() => this.postLocation()}>
+                              <Button variant="primary" type="submit" onClick={() => this.postLocation(this.props.coords.longitude,this.props.coords.latitude)}>
                                   Send Location
                                 </Button>
                           </div>
@@ -82,6 +87,13 @@ postLocation(event){
           </Row>
         </ThemeProvider>
       </div>
+    ):null
     );
   }
 }
+export default geolocated({
+  positionOptions: {
+      enableHighAccuracy: false,
+  },
+  userDecisionTimeout: 5000,
+})(TheButton);

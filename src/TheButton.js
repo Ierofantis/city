@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import { ThemeProvider, createTheme, Row, Arwes, Col, Button } from "arwes";
-import { Form } from 'react-bootstrap';
+import { Form, Navbar, Nav, NavDropdown, FormControl} from 'react-bootstrap';
 import * as jwtDecode from 'jwt-decode';
 import { geolocated } from "react-geolocated";
 
@@ -14,52 +14,19 @@ class TheButton extends React.Component {
     this.textInput = React.createRef(); 
     this.passInput = React.createRef(); 
     this.state = {loading: false};
+    this.user = localStorage.getItem("name");
   }
 
 componentDidMount(){
  let auth = localStorage.getItem("token");
   if(!auth){
     this.props.history.push('/');
+    alert('You have to register/login first')
     }
 }
 
-postLocation(lon,lat){
-
-    let latitude =  lat.toString();
-    let longitude = lon.toString();
-    let text = this.textInput.current.value;
-    let name = localStorage.getItem("name");
-    this.setState({ loading: true })
-    setTimeout(
-      function() {
-          this.setState({loading: false});
-      }
-      .bind(this),
-      1000
-  );
-
-    fetch('http://localhost:8080/api/send/location', {
-    method: 'post',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'x-access-token': localStorage.getItem("token"),
-    },
-    body: JSON.stringify(
-     { latitude:latitude, longitude:longitude, name:name, text:text
-    })
-  }).then(function(response) {
-    setTimeout(
-      function() {
-        if(response.status !== 200){
-         alert('Sorry, an error occured, try again later');
-         }
-      }
-      .bind(this),
-      1500
-  );
-      return response.json();
-  })
+goHome(){
+  this.props.history.push('/TheButton');
 }
 
   render() {
@@ -79,12 +46,29 @@ postLocation(lon,lat){
                     <React.Fragment>
                       {this.state.loading === false ? (
                       <div style={{ padding: 20 }}>
-                        <h1>Citizen</h1>
+                      <Navbar  bg="dark" variant="dark" expand="lg">
+                        <Navbar.Brand onClick={() => this.goHome()}>Citizen</Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                          <Nav className="mr-auto">
+                            <Nav.Link onClick={() => this.goHome()}>Home</Nav.Link>
+                            <NavDropdown title="Activity" id="basic-nav-dropdown">
+                              <NavDropdown.Item href="/Map">Alerts/Map</NavDropdown.Item>
+                              <NavDropdown.Item>My History</NavDropdown.Item>
+                              <NavDropdown.Divider />
+                              <NavDropdown.Item onClick={() => this.Logout()}>Logout</NavDropdown.Item>
+                            </NavDropdown>
+                          </Nav>
+                        </Navbar.Collapse>
+                      </Navbar>
+                      <div style={{ paddingTop: 20 }}>
+                        <h1>Welcome {this.user}</h1>
                         <p>You are not in danger</p>
                         <p>Make the incident public</p>
                        
                       <div class="container" style={{ paddingTop: 60 }}>
                           <div class="row">
+                      
                           <div class="col-lg-4 col-md-4 col-xs-12">
                           </div>
                             <div class="col-lg-4 col-md-4 col-xs-12">
@@ -97,9 +81,12 @@ postLocation(lon,lat){
                               <Button variant="primary" type="submit" onClick={() => this.postLocation(this.props.coords.longitude,this.props.coords.latitude)}>
                                   Send Location
                                 </Button>
-                               
+                                <div style={{ paddingTop: 40 }}>
+                                  <a className="links" onClick={() => this.Logout()}>Logout</a>
+                                </div>
                           </div>
                         </div>
+                      </div>
                       </div>
                     </div>
                       ):  

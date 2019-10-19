@@ -104,7 +104,7 @@ fetch('http://localhost:8080/api/users/signin', {
                     <React.Fragment>
                        {this.state.loading === false ? (
                       <div style={{ padding: 20 }}>
-                        <h1>Citizen</h1>
+                       <h1>Citizen</h1>
                         <p>You are not in danger</p>
                         <p><Button onClick={() => this.goToLogin()}>Login</Button> or <Button onClick={() => this.goToSignup()}>Signup</Button></p> 
                        
@@ -127,6 +127,9 @@ fetch('http://localhost:8080/api/users/signin', {
                               <Button variant="primary" type="submit" onClick={() => this.login()}>
                                   Submit
                                 </Button>
+                                <div style={{ paddingTop: 40 }}>
+                                  <a className="links" href="/">Go Back</a>
+                                </div>
                           </div>
                         </div>
                       </div>

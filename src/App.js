@@ -22,10 +22,10 @@ class App extends React.Component {
   }
 
   componentDidMount(){
-    let auth = localStorage.getItem("token");
-     if(auth){
-       this.props.history.push('/TheButton');
-       }
+    // let auth = localStorage.getItem("token");
+    //  if(auth){
+    //    this.props.history.push('/TheButton');
+    //    }
    }
 
 signup() {
@@ -43,7 +43,6 @@ signup() {
   .bind(this),
   1000
   );
-
 
   fetch('http://localhost:8080/api/users', {
     method: 'post',
@@ -112,7 +111,7 @@ signup() {
                     <React.Fragment>
                        {this.state.loading === false ? (
                       <div style={{ padding: 20 }}>
-                        <h1>Citizen</h1>
+                         <h1>Citizen</h1>
                         <p>You are not in danger</p>
                         <p><Button onClick={() => this.goToSignup()}>Signup</Button> or <Button onClick={() => this.goToLogin()}>Login</Button></p> 
                        
@@ -144,7 +143,9 @@ signup() {
                               <Button variant="primary" type="submit" onClick={() => this.signup()}>
                                   Submit
                                 </Button>
-                              
+                                <div style={{ paddingTop: 40 }}>
+                                  <a className="links" href="/">Go Back</a>
+                                </div>
                           </div>
                         </div>
                       </div>

@@ -11,16 +11,16 @@ import { Navbar, Nav, NavDropdown, FormControl} from 'react-bootstrap';
 import { Map as LeafletMap, TileLayer, Marker, Popup } from "react-leaflet";
 import MyNavbar from './MyNavbar';
 
-export default class Map extends React.Component {
+export default class GetLocation extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
      locations: [],
-     loading:false
+     loading: false
     }
-    this.fetchToggle = this.fetchToggle.bind(this)
-
+    this.fetchToggle = this.fetchToggle.bind(this);
+    this.user = localStorage.getItem("name");
   }
 
   fetchToggle(){
@@ -33,7 +33,7 @@ export default class Map extends React.Component {
       1000
    );
   }
-
+ 
   componentDidMount(){
     this.setState({ loading: true })
 
@@ -44,17 +44,25 @@ export default class Map extends React.Component {
         .bind(this),
         1500
      );
-    fetch("http://localhost:8080/api/send/danger")
+    fetch("http://localhost:8080/api/send/myLocations/"+localStorage.getItem("name"),{
+    
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem("token"),
+    }
+  })
      .then(res => res.json())
      .then(
        (result) => {
-         this.setState({ locations: result });      
-       },
+        this.setState({ locations: result });      
+      },
        (error) => {
          console.log(error);
        }
      )
- }
+  }
+
     goToLogin(){
      this.props.history.push('/Login');
     }
@@ -75,12 +83,25 @@ export default class Map extends React.Component {
                 localStorage.removeItem("token");
                 localStorage.removeItem("name");
 
-                 this.props.history.push('/');
+                this.props.history.push('/');
             }
             .bind(this),
             1000
         );   
       }
+
+      goHome(){
+        this.setState({ loading: true })
+          setTimeout(
+            function() {
+                this.setState({loading: false});
+                this.props.history.push('/TheButton');
+      
+            }
+            .bind(this),
+            1000
+        );   
+        }
     
   render() {
     const { locations } = this.state;
@@ -94,18 +115,12 @@ export default class Map extends React.Component {
               <Arwes animate show>
                 {anim => (
                     <React.Fragment >
-                 {this.state.loading === false ? (
+                  {this.state.loading === false ? (
                     <div >
                       <div style={{ padding: 20 }}>
-                      <MyNavbar {...this.props}/>
-                        <h1>Danger Places</h1>
-                        <p>You are not in danger </p>  
-                        {/* <Loader
-                          type="Puff"
-                          color="red"
-                          height={100}
-                          width={100}
-                        />  */}
+                      <MyNavbar {...this.props} fetchToggle={this.fetchToggle} />
+                        <h1>{this.user} Places</h1>
+                        <p>You are not in danger </p>                    
                     </div>
                         
                          <Col s={12} m={6} l={6} offset={['l3']}>
@@ -128,25 +143,25 @@ export default class Map extends React.Component {
                           </Marker>
                           ))}
                         </LeafletMap>
-                      </Col>                       
-                  </div>
-                  ):  
-                      <div class="container" style={{ paddingTop: 190 }}>
-                      <div class="row">
-                      <div class="col-lg-4 col-md-4 col-xs-12">
-                      </div>
-                        <div class="col-lg-4 col-md-4 col-xs-12">
-                        <Loader
-                          type="Puff"
-                          color="#00BFFF"
-                          height={100}
-                          width={100}
-                          timeout={3000} //3 secs
-                        />
-                     </div>
-                        </div>
-                      </div>
-                    }
+                      </Col>                        
+            </div>
+             ):  
+             <div class="container" style={{ paddingTop: 190 }}>
+             <div class="row">
+             <div class="col-lg-4 col-md-4 col-xs-12">
+             </div>
+               <div class="col-lg-4 col-md-4 col-xs-12">
+               <Loader
+                 type="Puff"
+                 color="#00BFFF"
+                 height={100}
+                 width={100}
+                 timeout={3000} //3 secs
+               />
+            </div>
+               </div>
+             </div>
+           }
                   </React.Fragment>
                 )}
               </Arwes>

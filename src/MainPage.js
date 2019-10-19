@@ -13,12 +13,12 @@ export default class MainPage extends React.Component {
   constructor(props) {
     super(props);
   }
+
+ 
   componentDidMount(){
-    // let auth = localStorage.getItem("token");
-    //  if(auth){
-    //    this.props.history.push('/TheButton');
-    //    }
+  
    }
+   
     goToLogin(){
      this.props.history.push('/Login');
     }
@@ -44,13 +44,7 @@ export default class MainPage extends React.Component {
                     <div >
                       <div style={{ padding: 20 }}>
                         <h1>Citizen</h1>
-                        <p>You are not in danger </p>  
-                        {/* <Loader
-                          type="Puff"
-                          color="red"
-                          height={100}
-                          width={100}
-                        />  */}
+                        <p>You are not in danger </p>                  
                     </div>
                          <div style={{ paddingTop: 80 }}>
                         <Button onClick={() => this.goToSignup()}>Signup</Button> or <Button onClick={() => this.goToLogin()} style={{ cursor: "pointer"}}>Login</Button>

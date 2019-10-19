@@ -4,29 +4,111 @@ import { ThemeProvider, createTheme, Row, Arwes, Col, Button } from "arwes";
 import { Form, Navbar, Nav, NavDropdown, FormControl} from 'react-bootstrap';
 import * as jwtDecode from 'jwt-decode';
 import { geolocated } from "react-geolocated";
-
 import Loader from 'react-loader-spinner'
+import MyNavbar from './MyNavbar';
+import { createBrowserHistory } from 'history'
+import { withRouter } from 'react-router';
+import { Redirect } from 'react-router-dom';
 
 class TheButton extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log('button',props)
     this.textInput = React.createRef(); 
     this.passInput = React.createRef(); 
     this.state = {loading: false};
     this.user = localStorage.getItem("name");
+    this.state= {
+      loading:false
+    }
+    this.fetchToggle = this.fetchToggle.bind(this)
+  }
+
+  // componentDidUpdate(prevprops,prevstate){
+  //   if(prevstate.loading === this.state.loading){
+  //      console.log('asd');
+  //   }
+  // }
+
+  fetchToggle(){
+    this.setState({ loading: true })
+    setTimeout(
+      function() {
+        this.setState({ loading: false })
+      }
+      .bind(this),
+      1000
+   );
   }
 
 componentDidMount(){
- let auth = localStorage.getItem("token");
-  if(!auth){
-    this.props.history.push('/');
-    alert('You have to register/login first')
+  let auth = localStorage.getItem("token");
+  this.setState({ loading: true })
+  setTimeout(
+    function() {
+      this.setState({ loading: false })
+      if(!auth){
+        this.props.history.push('/');
+        alert('You have to register/login first')
+      }
     }
+    .bind(this),
+    1500
+ );
 }
 
-goHome(){
-  this.props.history.push('/TheButton');
+Logout(){
+  this.setState({ loading: true })
+    setTimeout(
+      function() {
+          this.setState({loading: false});
+          localStorage.removeItem("token");
+          localStorage.removeItem("name");
+          this.props.history.push('/');
+      }
+      .bind(this),
+      1000
+  );   
+}
+
+postLocation(lon,lat){
+
+    let latitude =  lat.toString();
+    let longitude = lon.toString();
+    let text = this.textInput.current.value;
+    let name = localStorage.getItem("name");
+    this.setState({ loading: true })
+    setTimeout(
+      function() {
+          this.setState({loading: false});
+      }
+      .bind(this),
+      1000
+  );
+
+    fetch('http://localhost:8080/api/send/location', {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'x-access-token': localStorage.getItem("token"),
+    },
+    body: JSON.stringify(
+     { latitude:latitude, longitude:longitude, name:name, text:text
+    })
+  }).then(function(response) {
+    setTimeout(
+      function() {
+        if(response.status !== 200){
+         alert('Sorry, an error occured, try again later');
+         }
+      }
+      .bind(this),
+      1500
+  );
+      return response.json();
+  })
 }
 
   render() {
@@ -46,21 +128,7 @@ goHome(){
                     <React.Fragment>
                       {this.state.loading === false ? (
                       <div style={{ padding: 20 }}>
-                      <Navbar  bg="dark" variant="dark" expand="lg">
-                        <Navbar.Brand onClick={() => this.goHome()}>Citizen</Navbar.Brand>
-                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                        <Navbar.Collapse id="basic-navbar-nav">
-                          <Nav className="mr-auto">
-                            <Nav.Link onClick={() => this.goHome()}>Home</Nav.Link>
-                            <NavDropdown title="Activity" id="basic-nav-dropdown">
-                              <NavDropdown.Item href="/Map">Alerts/Map</NavDropdown.Item>
-                              <NavDropdown.Item>My History</NavDropdown.Item>
-                              <NavDropdown.Divider />
-                              <NavDropdown.Item onClick={() => this.Logout()}>Logout</NavDropdown.Item>
-                            </NavDropdown>
-                          </Nav>
-                        </Navbar.Collapse>
-                      </Navbar>
+                      <MyNavbar {...this.props} fetchToggle={this.fetchToggle} />
                       <div style={{ paddingTop: 20 }}>
                         <h1>Welcome {this.user}</h1>
                         <p>You are not in danger</p>

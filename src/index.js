@@ -4,10 +4,14 @@ import './index.css';
 import App from './App';
 import Login from './Login';
 import TheButton from './TheButton';
+import GetLocation from './GetLocation';
 import Map from './Map';
 import MainPage from './MainPage';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Link, Route } from 'react-router-dom';
+import MyNavbar from './MyNavbar';
+
+
 
 ReactDOM.render(
     <BrowserRouter>
@@ -15,6 +19,8 @@ ReactDOM.render(
     <Route path='/' component={MainPage}>
     </Route>
     <Route path='/TheButton' component={TheButton}> 
+    </Route>
+    <Route path='/GetLocation' component={GetLocation}> 
     </Route>
     <Route path='/Map' component={Map}> 
     </Route>

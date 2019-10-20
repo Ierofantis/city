@@ -60,9 +60,16 @@ fetch('http://localhost:8080/api/users/signin', {
 }).then(function(data) {
   localStorage.setItem("token", data.token);  
   localStorage.setItem("name", name);
-    if(data.token !== undefined){
-    props.history.push('/TheButton');
+  setTimeout(
+    function() {
+      if(data.token !== undefined){
+        props.history.push('/TheButton');
+        }
     }
+    .bind(this),
+    1500
+);
+    
  });
 }
 

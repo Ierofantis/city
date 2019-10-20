@@ -67,7 +67,13 @@ signup() {
   }).then(function(data) {
     localStorage.setItem("token", data.token);  
     localStorage.setItem("name", name);
-    props.history.push('/Login/');
+    setTimeout(
+      function() {
+        props.history.push('/TheButton/');
+      }
+      .bind(this),
+      1500
+  );
   });
 }
 

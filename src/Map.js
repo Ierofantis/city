@@ -1,13 +1,7 @@
 import React from "react";
 import "./App.css";
 import { ThemeProvider, createTheme, Row, Arwes, Col, Button } from "arwes";
-import { Form } from 'react-bootstrap';
-import * as jwtDecode from 'jwt-decode';
-import { createBrowserHistory } from 'history'
-import { withRouter } from 'react-router';
-import { Redirect } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
-import { Navbar, Nav, NavDropdown, FormControl} from 'react-bootstrap';
 import { Map as LeafletMap, TileLayer, Marker, Popup } from "react-leaflet";
 import MyNavbar from './MyNavbar';
 

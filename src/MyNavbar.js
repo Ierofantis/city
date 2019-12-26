@@ -1,10 +1,6 @@
 import React from "react";
 import "./App.css";
-import * as jwtDecode from 'jwt-decode';
-import { createBrowserHistory } from 'history'
-import { withRouter } from 'react-router';
-import { Redirect } from 'react-router-dom';
-import { Navbar, Nav, NavDropdown, FormControl, Form} from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
 export default class MyNavbar extends React.Component {
 

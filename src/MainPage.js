@@ -1,12 +1,6 @@
 import React from "react";
 import "./App.css";
 import { ThemeProvider, createTheme, Row, Arwes, Col, Button } from "arwes";
-import { Form } from 'react-bootstrap';
-import * as jwtDecode from 'jwt-decode';
-import { createBrowserHistory } from 'history'
-import { withRouter } from 'react-router';
-import { Redirect } from 'react-router-dom';
-import Loader from 'react-loader-spinner';
 
 export default class MainPage extends React.Component {
 
@@ -14,10 +8,7 @@ export default class MainPage extends React.Component {
     super(props);
   }
 
- 
-  componentDidMount(){
-  
-   }
+  componentDidMount(){}
    
     goToLogin(){
      this.props.history.push('/Login');

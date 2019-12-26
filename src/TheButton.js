@@ -1,14 +1,10 @@
 import React from "react";
 import "./App.css";
 import { ThemeProvider, createTheme, Row, Arwes, Col, Button } from "arwes";
-import { Form, Navbar, Nav, NavDropdown, FormControl} from 'react-bootstrap';
-import * as jwtDecode from 'jwt-decode';
+import { Form} from 'react-bootstrap';
 import { geolocated } from "react-geolocated";
 import Loader from 'react-loader-spinner'
 import MyNavbar from './MyNavbar';
-import { createBrowserHistory } from 'history'
-import { withRouter } from 'react-router';
-import { Redirect } from 'react-router-dom';
 
 class TheButton extends React.Component {
 

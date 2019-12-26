@@ -7,9 +7,7 @@ import TheButton from './TheButton';
 import GetLocation from './GetLocation';
 import Map from './Map';
 import MainPage from './MainPage';
-import * as serviceWorker from './serviceWorker';
-import { BrowserRouter, Link, Route } from 'react-router-dom';
-import MyNavbar from './MyNavbar';
+import { BrowserRouter, Route } from 'react-router-dom';
 
 
 
@@ -35,5 +33,4 @@ ReactDOM.render(
   </BrowserRouter>,
     document.getElementById('root')
   );
-serviceWorker.unregister();
 

@@ -130,16 +130,16 @@ postLocation(lon,lat){
                         <p>You are not in danger</p>
                         <p>Make the incident public</p>
                        
-                      <div class="container" style={{ paddingTop: 60 }}>
-                          <div class="row">
+                      <div className="container" style={{ paddingTop: 60 }}>
+                          <div className="row">
                       
-                          <div class="col-lg-4 col-md-4 col-xs-12">
+                          <div className="col-lg-4 col-md-4 col-xs-12">
                           </div>
-                            <div class="col-lg-4 col-md-4 col-xs-12">
+                            <div className="col-lg-4 col-md-4 col-xs-12">
                                <Form>
                                 <Form.Group controlId="formBasicUser">
                                   <Form.Label>Write about the incident</Form.Label>
-                                  <Form.Control ref={this.textInput} type="text" type="text" placeholder="i think that I am in danger..."  maxlength="255"/>
+                                  <Form.Control ref={this.textInput} type="text" type="text" placeholder="i think that I am in danger..."  maxLength="255"/>
                                 </Form.Group>
                               </Form>
                               <Button variant="primary" type="submit" onClick={() => this.postLocation(this.props.coords.longitude,this.props.coords.latitude)}>
@@ -154,11 +154,11 @@ postLocation(lon,lat){
                       </div>
                     </div>
                       ):  
-                      <div class="container" style={{ paddingTop: 190 }}>
-                      <div class="row">
-                      <div class="col-lg-4 col-md-4 col-xs-12">
+                      <div className="container" style={{ paddingTop: 190 }}>
+                      <div className="row">
+                      <div className="col-lg-4 col-md-4 col-xs-12">
                       </div>
-                        <div class="col-lg-4 col-md-4 col-xs-12">
+                        <div className="col-lg-4 col-md-4 col-xs-12">
                         <Loader
                           type="Puff"
                           color="#00BFFF"

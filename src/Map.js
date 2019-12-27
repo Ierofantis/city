@@ -125,11 +125,11 @@ export default class Map extends React.Component {
                       </Col>                       
                   </div>
                   ):  
-                      <div class="container" style={{ paddingTop: 190 }}>
-                      <div class="row">
-                      <div class="col-lg-4 col-md-4 col-xs-12">
+                      <div className="container" style={{ paddingTop: 190 }}>
+                      <div className="row">
+                      <div className="col-lg-4 col-md-4 col-xs-12">
                       </div>
-                        <div class="col-lg-4 col-md-4 col-xs-12">
+                        <div className="col-lg-4 col-md-4 col-xs-12">
                         <Loader
                           type="Puff"
                           color="#00BFFF"

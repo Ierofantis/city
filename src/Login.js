@@ -27,15 +27,6 @@ login(){
 let name = this.textInput.current.value;
 let password = this.passInput.current.value;
 let props = this.props;
-this.setState({ loading: true })
-setTimeout(
-  function() {
-      this.setState({loading: false});
-  }
-  .bind(this),
-  1000
-);
-
 
 fetch('http://localhost:8080/api/users/signin', {
   method: 'post',
@@ -68,8 +59,7 @@ fetch('http://localhost:8080/api/users/signin', {
     }
     .bind(this),
     1500
-);
-    
+   );   
  });
 }
 
@@ -92,6 +82,7 @@ fetch('http://localhost:8080/api/users/signin', {
       console.log('no token found')
     }
   };
+  
  goToLogin(){
      this.props.history.push('/Login');
   }

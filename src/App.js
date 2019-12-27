@@ -31,15 +31,6 @@ signup() {
   let password = this.passInput.current.value;
   let props = this.props;
 
-  this.setState({ loading: true })
-  setTimeout(
-  function() {
-      this.setState({loading: false});
-  }
-  .bind(this),
-  1000
-  );
-
   fetch('http://localhost:8080/api/users', {
     method: 'post',
     headers: {

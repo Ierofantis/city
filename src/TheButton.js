@@ -10,7 +10,6 @@ class TheButton extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log('button',props)
     this.textInput = React.createRef(); 
     this.passInput = React.createRef(); 
     this.state = {loading: false};
@@ -20,12 +19,6 @@ class TheButton extends React.Component {
     }
     this.fetchToggle = this.fetchToggle.bind(this)
   }
-
-  // componentDidUpdate(prevprops,prevstate){
-  //   if(prevstate.loading === this.state.loading){
-  //      console.log('asd');
-  //   }
-  // }
 
   fetchToggle(){
     this.setState({ loading: true })

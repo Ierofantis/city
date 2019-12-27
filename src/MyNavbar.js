@@ -11,19 +11,20 @@ export default class MyNavbar extends React.Component {
     };
   }
      
-    Logout(){
-      this.props.fetchToggle()
-          setTimeout(
-            function() {
-              localStorage.removeItem("token");
-                localStorage.removeItem("name");
+  Logout(){
+    this.setState({ loading: true })
+      setTimeout(
+        function() {
+            this.setState({loading: false});
+            localStorage.removeItem("token");
+            localStorage.removeItem("name");
 
-                this.props.history.push('/');
-            }
-            .bind(this),
-            1000
-        );   
-      }
+             this.props.history.push('/');
+        }
+        .bind(this),
+        1000
+    );   
+  }
 
       goHome(){
          this.props.history.push('/TheButton');       

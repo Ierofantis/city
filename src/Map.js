@@ -81,7 +81,7 @@ export default class Map extends React.Component {
 
      return (
       <div className="App">
-        <ThemeProvider theme={createTheme()} className=" ar">
+        <ThemeProvider theme={createTheme()}>
           <Row>
 
             <Col s={6} m={8} l={6} offset={["m2", "l3"]}>
@@ -93,13 +93,7 @@ export default class Map extends React.Component {
                       <div style={{ padding: 20 }}>
                       <MyNavbar {...this.props}/>
                         <h1>Danger Places</h1>
-                        <p>You are not in danger </p>  
-                        {/* <Loader
-                          type="Puff"
-                          color="red"
-                          height={100}
-                          width={100}
-                        />  */}
+                        <p>You are not in danger </p> 
                     </div>
                         
                          <Col s={12} m={6} l={6} offset={['l3']}>

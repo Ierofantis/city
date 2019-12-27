@@ -25,7 +25,7 @@ export default class MainPage extends React.Component {
   render() {
      return (
       <div className="App">
-        <ThemeProvider theme={createTheme()} className=" ar">
+        <ThemeProvider theme={createTheme()}>
           <Row>
 
             <Col s={6} m={8} l={6} offset={["m2", "l3"]}>

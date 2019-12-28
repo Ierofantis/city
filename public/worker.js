@@ -4,7 +4,7 @@ self.addEventListener("push", e => {
   const data = e.data.json();
   console.log("Push Recieved...");
   self.registration.showNotification(data.title, {
-    body: "Notified by Traversy Media!",
-    icon: "http://image.ibb.co/frYOFd/tmlogo.png"
+    body: "Danger",
+    icon: "https://cdn.imgbin.com/18/12/10/imgbin-computer-icons-others-ju4HUS4TFWweV2TsTfx7twKmy.jpg"
   });
 });

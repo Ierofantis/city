@@ -17,7 +17,9 @@ class TheButton extends React.Component {
     this.state= {
       loading:false
     }
-    this.fetchToggle = this.fetchToggle.bind(this)
+    this.fetchToggle = this.fetchToggle.bind(this);
+    this.publicVapidKey =
+  "BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo";
   }
 
   fetchToggle(){
@@ -61,6 +63,49 @@ Logout(){
   );   
 }
 
+// Register SW, Register Push, Send Push
+async  send() {
+  // Register Service Worker
+  console.log("Registering service worker...");
+  const register = await navigator.serviceWorker.register("/worker.js", {
+    scope: "/"
+  });
+  console.log("Service Worker Registered...");
+
+  // Register Push
+  console.log("Registering Push...");
+  const subscription = await register.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: this.urlBase64ToUint8Array(this.publicVapidKey)
+  });
+  console.log("Push Registered...");
+
+  // Send Push Notification
+  console.log("Sending Push...");
+  await fetch("http://localhost:8080/subscribe", {
+    method: "POST",
+    body: JSON.stringify(subscription),
+    headers: {
+      "content-type": "application/json"
+    }
+  });
+  console.log("Push Sent...");
+}
+
+urlBase64ToUint8Array(base64String) {
+  const padding = "=".repeat((4 - base64String.length % 4) % 4);
+  const base64 = (base64String + padding)
+    .replace(/\-/g, "+")
+    .replace(/_/g, "/");
+
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
 postLocation(lon,lat){
 
     let latitude =  lat.toString();
@@ -76,7 +121,13 @@ postLocation(lon,lat){
       1000
   );
 
-    fetch('http://localhost:8080/api/send/location', {
+  // Check for service worker
+  if ("serviceWorker" in navigator) {
+    this.send().catch(err => console.error(err));
+  }  
+  console.log(name) 
+  
+  fetch('http://localhost:8080/api/send/location', {
     method: 'post',
     headers: {
       'Accept': 'application/json',
@@ -96,7 +147,8 @@ postLocation(lon,lat){
       .bind(this),
       1500
   );
-      return response.json();
+     
+    return response.json();
   })
 }
 

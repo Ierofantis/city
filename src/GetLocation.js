@@ -38,12 +38,13 @@ export default class GetLocation extends React.Component {
         .bind(this),
         1500
      );
-    fetch("https://danger-button.herokuapp.com/api/send/myLocations/"+localStorage.getItem("name"),{
+    fetch("https://danger-button-backend.herokuapp.com/api/send/myLocations/"+localStorage.getItem("name"),{
     
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'x-access-token': localStorage.getItem("token"),
+      'Access-Control-Allow-Origin': '*'
     }
   })
      .then(res => res.json())

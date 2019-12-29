@@ -82,11 +82,14 @@ async  send() {
 
   // Send Push Notification
   console.log("Sending Push...");
-  await fetch("https://danger-button.herokuapp.com/subscribe", {
+  const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
+  await fetch(proxyurl+"https://danger-button-backend.herokuapp.com/subscribe", {
     method: "POST",
     body: JSON.stringify(subscription),
     headers: {
-      "content-type": "application/json"
+      "content-type": "application/json",
+      'Access-Control-Allow-Origin': '*'
     }
   });
   console.log("Push Sent...");
@@ -126,13 +129,15 @@ postLocation(lon,lat){
     this.send().catch(err => console.error(err));
   }  
   console.log(name) 
-  
-  fetch('https://danger-button.herokuapp.com/api/send/location', {
+  const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
+  fetch(proxyurl+'https://danger-button-backend.herokuapp.com/api/send/location', {
     method: 'post',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       'x-access-token': localStorage.getItem("token"),
+      'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify(
      { latitude:latitude, longitude:longitude, name:name, text:text

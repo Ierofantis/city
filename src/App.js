@@ -30,12 +30,14 @@ signup() {
   let email = this.emailInput.current.value;
   let password = this.passInput.current.value;
   let props = this.props;
+  const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
-  fetch('https://danger-button.herokuapp.com/api/users', {
+  fetch(proxyurl+'https://danger-button-backend.herokuapp.com/api/users', {
     method: 'post',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify(
      { name:name, email:email, password:password,

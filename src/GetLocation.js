@@ -38,7 +38,7 @@ export default class GetLocation extends React.Component {
         .bind(this),
         1500
      );
-    fetch("http://localhost:8080/api/send/myLocations/"+localStorage.getItem("name"),{
+    fetch("https://danger-button.herokuapp.com/api/send/myLocations/"+localStorage.getItem("name"),{
     
     headers: {
       'Accept': 'application/json',

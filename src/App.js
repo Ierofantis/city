@@ -31,7 +31,7 @@ signup() {
   let password = this.passInput.current.value;
   let props = this.props;
 
-  fetch('http://localhost:8080/api/users', {
+  fetch('https://danger-button.herokuapp.com/api/users', {
     method: 'post',
     headers: {
       'Accept': 'application/json',

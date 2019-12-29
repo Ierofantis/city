@@ -82,7 +82,7 @@ async  send() {
 
   // Send Push Notification
   console.log("Sending Push...");
-  await fetch("http://localhost:8080/subscribe", {
+  await fetch("https://danger-button.herokuapp.com/subscribe", {
     method: "POST",
     body: JSON.stringify(subscription),
     headers: {
@@ -127,7 +127,7 @@ postLocation(lon,lat){
   }  
   console.log(name) 
   
-  fetch('http://localhost:8080/api/send/location', {
+  fetch('https://danger-button.herokuapp.com/api/send/location', {
     method: 'post',
     headers: {
       'Accept': 'application/json',

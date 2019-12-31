@@ -84,7 +84,7 @@ async  send() {
   console.log("Sending Push...");
   const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
-  await fetch("https://danger-button-backend.herokuapp.com/subscribe", {
+  await fetch("https://danger-button-backend.herokuapp.com/api/send/subscribe", {
     method: "POST",
     body: JSON.stringify(subscription),
     headers: {

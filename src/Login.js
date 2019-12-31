@@ -37,6 +37,7 @@ fetch('https://danger-button-backend.herokuapp.com/api/users/signin', {
     'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
     'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
     'Accept': 'application/json',
+    'Content-Type': 'application/json',
   },
   body: JSON.stringify(
     { name: name, password: password,

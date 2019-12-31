@@ -84,7 +84,7 @@ async  send() {
   console.log("Sending Push...");
   const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
-  await fetch(proxyurl+"https://danger-button-backend.herokuapp.com/subscribe", {
+  await fetch("https://danger-button-backend.herokuapp.com/subscribe", {
     method: "POST",
     body: JSON.stringify(subscription),
     headers: {
@@ -131,7 +131,7 @@ postLocation(lon,lat){
   console.log(name) 
   const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
-  fetch(proxyurl+'https://danger-button-backend.herokuapp.com/api/send/location', {
+  fetch('https://danger-button-backend.herokuapp.com/api/send/location', {
     method: 'post',
     headers: {
       'Accept': 'application/json',

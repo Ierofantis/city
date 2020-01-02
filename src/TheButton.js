@@ -62,9 +62,17 @@ Logout(){
       1000
   );   
 }
+Subscribe(){
+  const publicVapidKey =
+  "BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo";
+
+// Check for service worker
+if ("serviceWorker" in navigator) {
+  send().catch(err => console.error(err));
+}
 
 // Register SW, Register Push, Send Push
-async  send() {
+async function send() {
   // Register Service Worker
   console.log("Registering service worker...");
   const register = await navigator.serviceWorker.register("/worker.js", {
@@ -76,15 +84,14 @@ async  send() {
   console.log("Registering Push...");
   const subscription = await register.pushManager.subscribe({
     userVisibleOnly: true,
-    applicationServerKey: this.urlBase64ToUint8Array(this.publicVapidKey)
+    applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
   });
   console.log("Push Registered...");
 
   // Send Push Notification
   console.log("Sending Push...");
-  const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
-  await fetch("https://danger-button-backend.herokuapp.com/api/send/subscribe", {
+  await fetch("https://danger-button-backend.herokuapp.com/api/send/subscribe/save", {
     method: "POST",
     body: JSON.stringify(subscription),
     headers: {
@@ -93,9 +100,10 @@ async  send() {
     }
   });
   console.log("Push Sent...");
+  localStorage.setItem("subscribed", true);  
 }
 
-urlBase64ToUint8Array(base64String) {
+function urlBase64ToUint8Array(base64String) {
   const padding = "=".repeat((4 - base64String.length % 4) % 4);
   const base64 = (base64String + padding)
     .replace(/\-/g, "+")
@@ -108,7 +116,19 @@ urlBase64ToUint8Array(base64String) {
     outputArray[i] = rawData.charCodeAt(i);
   }
   return outputArray;
+}  
 }
+async  send() {
+  console.log("Sending Push...");
+  await fetch("https://danger-button-backend.herokuapp.com/api/send/subscribe", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      'Access-Control-Allow-Origin': '*'
+    }
+  });
+}
+
 postLocation(lon,lat){
 
     let latitude =  lat.toString();
@@ -125,12 +145,12 @@ postLocation(lon,lat){
   );
 
   // Check for service worker
+ if(localStorage.getItem("subscribed", true)){ 
+ 
   if ("serviceWorker" in navigator) {
     this.send().catch(err => console.error(err));
   }  
-  console.log(name) 
-  const proxyurl = "https://cors-anywhere.herokuapp.com/";
-
+ }
   fetch('https://danger-button-backend.herokuapp.com/api/send/location', {
     method: 'post',
     headers: {
@@ -179,7 +199,10 @@ postLocation(lon,lat){
                         <h1>Welcome {this.user}</h1>
                         <p>You are not in danger</p>
                         <p>Make the incident public</p>
-                       
+                       {localStorage.getItem("subscribed", true)  ? (<div style={{ paddingTop: 40 }}>
+                                  <a className="links" onClick={() => this.Subscribe()}>NOTIFY ME FOR REAL TIME DANGEROUS REPORTS</a>
+                                </div>
+                      ):null}
                       <div className="container" style={{ paddingTop: 60 }}>
                           <div className="row">
                       

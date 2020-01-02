@@ -27,7 +27,6 @@ login(){
 let name = this.textInput.current.value;
 let password = this.passInput.current.value;
 let props = this.props;
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
 fetch('https://danger-button-backend.herokuapp.com/api/users/signin', {
   method: 'post',

@@ -22,6 +22,19 @@ async function send() {
     applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
   });
   console.log("Push Registered...");
+
+  // Send Push Notification
+  console.log("Sending Push...");
+
+  await fetch("https://danger-button-backend.herokuapp.com/api/send/subscribe/save", {
+    method: "POST",
+    body: JSON.stringify(subscription),
+    headers: {
+      "content-type": "application/json",
+      'Access-Control-Allow-Origin': '*'
+    }
+  });
+  console.log("Push Sent...");
 }
 
 function urlBase64ToUint8Array(base64String) {

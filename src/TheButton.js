@@ -15,11 +15,16 @@ class TheButton extends React.Component {
     this.state = {loading: false};
     this.user = localStorage.getItem("name");
     this.state= {
-      loading:false
+      loading:false,
+      showNotification: true
     }
     this.fetchToggle = this.fetchToggle.bind(this);
     this.publicVapidKey =
   "BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo";
+
+  if(localStorage.getItem("subscribed")){console.log('asdasd')
+    this.setState({showNotification: false});
+   }
   }
 
   fetchToggle(){
@@ -65,11 +70,12 @@ Logout(){
 Subscribe(){
   const publicVapidKey =
   "BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo";
+  this.setState({showNotification:false })
 
 // Check for service worker
 if ("serviceWorker" in navigator) {
   send().catch(err => console.error(err));
-}
+  }
 
 // Register SW, Register Push, Send Push
 async function send() {
@@ -145,7 +151,7 @@ postLocation(lon,lat){
   );
 
   // Check for service worker
- if(localStorage.getItem("subscribed", true)){ 
+ if(localStorage.getItem("subscribed")){ 
  
   if ("serviceWorker" in navigator) {
     this.send().catch(err => console.error(err));
@@ -178,6 +184,7 @@ postLocation(lon,lat){
 }
 
   render() {
+    console.log(this.state.showNotification);
      return (
       !this.props.isGeolocationAvailable ? (
         <div>Your browser does not support Geolocation</div>
@@ -199,7 +206,7 @@ postLocation(lon,lat){
                         <h1>Welcome {this.user}</h1>
                         <p>You are not in danger</p>
                         <p>Make the incident public</p>
-                       {localStorage.getItem("subscribed", true)  ? (<div style={{ paddingTop: 40 }}>
+                       {!localStorage.getItem("subscribed") || this.state.showNotification === false ? (<div style={{ paddingTop: 40 }}>
                                   <a className="links" onClick={() => this.Subscribe()}>NOTIFY ME FOR REAL TIME DANGEROUS REPORTS</a>
                                 </div>
                       ):null}

@@ -31,26 +31,35 @@ signup() {
   let password = this.passInput.current.value;
   let props = this.props;
 
-  fetch('https://danger-button-backend.herokuapp.com/api/users', {
+  this.setState({ loading: true })
+  const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
+  fetch(proxyurl+'https://danger-button-backend.herokuapp.com/api/users', {
     method: 'post',
     headers: {
+      'Access-Control-Allow-Origin':'*',
+      'Access-Control-Allow-Credentials':'true',
+      'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
+      'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
     },
     body: JSON.stringify(
      { name:name, email:email, password:password,
     })
   }).then(function(response) {
-    setTimeout(
-      function() {
-        if(response.status !== 200){
+  //   setTimeout(
+  //     function() {
+  //       if(response.status !== 200){
+  //        alert('Sorry, an error occured, try again later');
+  //        }
+  //     }
+  //     .bind(this),
+  //     1500
+  // );
+          if(response.status !== 200){
          alert('Sorry, an error occured, try again later');
          }
-      }
-      .bind(this),
-      1500
-  );
     return response.json();
   }).then(function(data) {
     localStorage.setItem("token", data.token);  
@@ -60,7 +69,7 @@ signup() {
         props.history.push('/TheButton/');
       }
       .bind(this),
-      1500
+      500
   );
   });
 }
@@ -106,14 +115,14 @@ signup() {
                        {this.state.loading === false ? (
                       <div style={{ padding: 20 }}>
                          <h1>Citizen</h1>
-                        <p>You are not in danger</p>
-                        <p><Button onClick={() => this.goToSignup()}>Signup</Button> or <Button onClick={() => this.goToLogin()}>Login</Button></p> 
+                        <div>You are not in danger</div>
+                        <div><Button onClick={() => this.goToSignup()}>Signup</Button> or <Button onClick={() => this.goToLogin()}>Login</Button></div> 
                        
-                      <div class="container" style={{ paddingTop: 60 }}>
-                          <div class="row">
-                          <div class="col-lg-4 col-md-4 col-xs-12">
+                      <div className="container" style={{ paddingTop: 60 }}>
+                          <div className="row">
+                          <div className="col-lg-4 col-md-4 col-xs-12">
                           </div>
-                            <div class="col-lg-4 col-md-4 col-xs-12">
+                            <div className="col-lg-4 col-md-4 col-xs-12">
                                <Form>
                                 <Form.Group controlId="formBasicUser">
                                   <Form.Label>Username</Form.Label>
@@ -145,11 +154,11 @@ signup() {
                       </div>
                     </div>
                        ):
-                       <div class="container" style={{ paddingTop: 190 }}>
-                       <div class="row">
-                       <div class="col-lg-4 col-md-4 col-xs-12">
+                       <div className="container" style={{ paddingTop: 190 }}>
+                       <div className="row">
+                       <div className="col-lg-4 col-md-4 col-xs-12">
                        </div>
-                         <div class="col-lg-4 col-md-4 col-xs-12">
+                         <div className="col-lg-4 col-md-4 col-xs-12">
                          <Loader
                            type="Puff"
                            color="#00BFFF"

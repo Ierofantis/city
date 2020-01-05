@@ -35,7 +35,7 @@ export default class MainPage extends React.Component {
                     <div >
                       <div style={{ padding: 20 }}>
                         <h1>Citizen</h1>
-                        <p>You are not in danger </p>                  
+                        <div>You are not in danger </div>                  
                     </div>
                          <div style={{ paddingTop: 80 }}>
                         <Button onClick={() => this.goToSignup()}>Signup</Button> or <Button onClick={() => this.goToLogin()} style={{ cursor: "pointer"}}>Login</Button>

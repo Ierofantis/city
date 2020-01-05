@@ -17,12 +17,12 @@ class TheButton extends React.Component {
     this.state= {
       loading:false,
       showNotification: true
-    }
+    };
     this.fetchToggle = this.fetchToggle.bind(this);
     this.publicVapidKey =
   "BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo";
 
-  if(localStorage.getItem("subscribed")){console.log('asdasd')
+  if(localStorage.getItem("subscribed")){
     this.setState({showNotification: false});
    }
   }
@@ -33,25 +33,35 @@ class TheButton extends React.Component {
       function() {
         this.setState({ loading: false })
       }
-      .bind(this),
+     .bind(this),
       1000
    );
   }
 
 componentDidMount(){
   let auth = localStorage.getItem("token");
-  this.setState({ loading: true })
-  setTimeout(
-    function() {
+  // this.setState({ loading: true })
+  // setTimeout(
+  //   function() {
       this.setState({ loading: false })
       if(!auth){
         this.props.history.push('/');
         alert('You have to register/login first')
       }
     }
-    .bind(this),
-    1500
- );
+//     .bind(this),
+//     1500
+//  );
+
+async  send() {
+  console.log("Sending Push...");
+  await fetch("https://danger-button-backend.herokuapp.com/api/send/subscribe", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      'Access-Control-Allow-Origin': '*'
+    }
+  });
 }
 
 Logout(){
@@ -66,73 +76,6 @@ Logout(){
       .bind(this),
       1000
   );   
-}
-Subscribe(){
-  const publicVapidKey =
-  "BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo";
-  this.setState({showNotification:false })
-
-// Check for service worker
-if ("serviceWorker" in navigator) {
-  send().catch(err => console.error(err));
-  }
-
-// Register SW, Register Push, Send Push
-async function send() {
-  // Register Service Worker
-  console.log("Registering service worker...");
-  const register = await navigator.serviceWorker.register("/worker.js", {
-    scope: "/"
-  });
-  console.log("Service Worker Registered...");
-
-  // Register Push
-  console.log("Registering Push...");
-  const subscription = await register.pushManager.subscribe({
-    userVisibleOnly: true,
-    applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
-  });
-  console.log("Push Registered...");
-
-  // Send Push Notification
-  console.log("Sending Push...");
-
-  await fetch("https://danger-button-backend.herokuapp.com/api/send/subscribe/save", {
-    method: "POST",
-    body: JSON.stringify(subscription),
-    headers: {
-      "content-type": "application/json",
-      'Access-Control-Allow-Origin': '*'
-    }
-  });
-  console.log("Push Sent...");
-  localStorage.setItem("subscribed", true);  
-}
-
-function urlBase64ToUint8Array(base64String) {
-  const padding = "=".repeat((4 - base64String.length % 4) % 4);
-  const base64 = (base64String + padding)
-    .replace(/\-/g, "+")
-    .replace(/_/g, "/");
-
-  const rawData = window.atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
-
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
-  }
-  return outputArray;
-}  
-}
-async  send() {
-  console.log("Sending Push...");
-  await fetch("https://danger-button-backend.herokuapp.com/api/send/subscribe", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      'Access-Control-Allow-Origin': '*'
-    }
-  });
 }
 
 postLocation(lon,lat){
@@ -184,7 +127,6 @@ postLocation(lon,lat){
 }
 
   render() {
-    console.log(this.state.showNotification);
      return (
       !this.props.isGeolocationAvailable ? (
         <div>Your browser does not support Geolocation</div>
@@ -204,12 +146,8 @@ postLocation(lon,lat){
                       <MyNavbar {...this.props} fetchToggle={this.fetchToggle} />
                       <div style={{ paddingTop: 20 }}>
                         <h1>Welcome {this.user}</h1>
-                        <p>You are not in danger</p>
-                        <p>Make the incident public</p>
-                       {!localStorage.getItem("subscribed") || this.state.showNotification === false ? (<div style={{ paddingTop: 40 }}>
-                                  <a className="links" onClick={() => this.Subscribe()}>NOTIFY ME FOR REAL TIME DANGEROUS REPORTS</a>
-                                </div>
-                      ):null}
+                        <div>You are not in danger</div>
+                        <div>Make the incident public</div>
                       <div className="container" style={{ paddingTop: 60 }}>
                           <div className="row">
                       

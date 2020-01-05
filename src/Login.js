@@ -27,6 +27,7 @@ login(){
 let name = this.textInput.current.value;
 let password = this.passInput.current.value;
 let props = this.props;
+this.setState({ loading: true })
 
 fetch('https://danger-button-backend.herokuapp.com/api/users/signin', {
   method: 'post',
@@ -42,15 +43,19 @@ fetch('https://danger-button-backend.herokuapp.com/api/users/signin', {
     { name: name, password: password,
    })
  }).then(function(response) {
-  setTimeout(
-    function() {
-      if(response.status !== 200){
-       alert('Sorry, an error occured, try again later');
-       }
-    }
-    .bind(this),
-    1500
-);
+//   setTimeout(
+//     function() {
+//       if(response.status !== 200){
+//        alert('Sorry, an error occured, try again later');
+//        }
+//     }
+//     .bind(this),
+//     1500
+// );
+        if(response.status !== 200){
+        this.setState({ loading:false })
+         alert('Sorry, an error occured, try again later');
+         }
   return response.json();
 }).then(function(data) {
   localStorage.setItem("token", data.token);  
@@ -107,14 +112,14 @@ fetch('https://danger-button-backend.herokuapp.com/api/users/signin', {
                        {this.state.loading === false ? (
                       <div style={{ padding: 20 }}>
                        <h1>Citizen</h1>
-                        <p>You are not in danger</p>
-                        <p><Button onClick={() => this.goToLogin()}>Login</Button> or <Button onClick={() => this.goToSignup()}>Signup</Button></p> 
+                        <div  style = {{ paddingBottom: 60 }}>You are not in danger</div>
+                        <div><Button onClick={() => this.goToLogin()}>Login</Button> or <Button onClick={() => this.goToSignup()}>Signup</Button></div> 
                        
-                      <div class="container" style={{ paddingTop: 60 }}>
-                          <div class="row">
-                          <div class="col-lg-4 col-md-4 col-xs-12">
+                      <div className="container" style={{ paddingTop: 60 }}>
+                          <div className="row">
+                          <div className="col-lg-4 col-md-4 col-xs-12">
                           </div>
-                            <div class="col-lg-4 col-md-4 col-xs-12">
+                            <div className="col-lg-4 col-md-4 col-xs-12">
                                <Form>
                                 <Form.Group controlId="formBasicUser">
                                   <Form.Label>Username</Form.Label>
@@ -137,11 +142,11 @@ fetch('https://danger-button-backend.herokuapp.com/api/users/signin', {
                       </div>
                     </div>
                        ):
-                       <div class="container" style={{ paddingTop: 190 }}>
-                       <div class="row">
-                       <div class="col-lg-4 col-md-4 col-xs-12">
+                       <div className="container" style={{ paddingTop: 190 }}>
+                       <div className="row">
+                       <div className="col-lg-4 col-md-4 col-xs-12">
                        </div>
-                         <div class="col-lg-4 col-md-4 col-xs-12">
+                         <div className="col-lg-4 col-md-4 col-xs-12">
                          <Loader
                            type="Puff"
                            color="#00BFFF"

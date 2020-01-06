@@ -7,17 +7,17 @@ import MyNavbar from './MyNavbar'
 
 export default class GetLocation extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       locations: [],
       loading: false
-    }
-    this.fetchToggle = this.fetchToggle.bind(this)
-    this.user = localStorage.getItem('name')
+    };
+    this.fetchToggle = this.fetchToggle.bind(this);
+    this.user = localStorage.getItem('name');
   }
 
   fetchToggle () {
-    this.setState({ loading: true })
+    this.setState({ loading: true });
     setTimeout(
       function () {
         this.setState({ loading: false })
@@ -27,7 +27,7 @@ export default class GetLocation extends React.Component {
   }
 
   componentDidMount () {
-    this.setState({ loading: true })
+    this.setState({ loading: true });
 
     setTimeout(
       function () {
@@ -59,26 +59,26 @@ export default class GetLocation extends React.Component {
   }
 
   goToLogin () {
-    this.props.history.push('/Login')
+    this.props.history.push('/Login');
   }
 
   goToSignup () {
-    this.props.history.push('/Signup')
+    this.props.history.push('/Signup');
   }
 
   goToTheButton () {
-    this.props.history.push('/TheButton')
+    this.props.history.push('/TheButton');
   }
 
   Logout () {
     this.setState({ loading: true })
     setTimeout(
       function () {
-        this.setState({ loading: false })
-        localStorage.removeItem('token')
-        localStorage.removeItem('name')
+        this.setState({ loading: false });
+        localStorage.removeItem('token');
+        localStorage.removeItem('name');
 
-        this.props.history.push('/')
+        this.props.history.push('/');
       }.bind(this),
       1000
     )
@@ -88,15 +88,15 @@ export default class GetLocation extends React.Component {
     this.setState({ loading: true })
     setTimeout(
       function () {
-        this.setState({ loading: false })
-        this.props.history.push('/TheButton')
+        this.setState({ loading: false });
+        this.props.history.push('/TheButton');
       }.bind(this),
       1000
     )
   }
 
   render () {
-    const { locations } = this.state
+    const { locations } = this.state;
 
     return (
       <div className='App'>

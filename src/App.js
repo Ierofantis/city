@@ -8,21 +8,21 @@ import Loader from 'react-loader-spinner'
 
 class App extends React.Component {
   constructor (props) {
-    super(props)
-    this.textInput = React.createRef()
-    this.passInput = React.createRef()
-    this.emailInput = React.createRef()
-    this.state = { loading: false }
+    super(props);
+    this.textInput = React.createRef();
+    this.passInput = React.createRef();
+    this.emailInput = React.createRef();
+    this.state = { loading: false };
   }
 
   signup () {
-    let name = this.textInput.current.value
-    let email = this.emailInput.current.value
-    let password = this.passInput.current.value
-    let props = this.props
+    let name = this.textInput.current.value;
+    let email = this.emailInput.current.value;
+    let password = this.passInput.current.value;
+    let props = this.props;
 
-    this.setState({ loading: true })
-    const proxyurl = 'https://cors-anywhere.herokuapp.com/'
+    this.setState({ loading: true });
+    const proxyurl = 'https://cors-anywhere.herokuapp.com/';
 
     fetch(proxyurl + 'https://danger-button-backend.herokuapp.com/api/users', {
       method: 'post',
@@ -39,7 +39,7 @@ class App extends React.Component {
     })
       .then(function (response) {
         if (response.status !== 200) {
-          alert('Sorry, an error occured, with status ' + response.status)
+          alert('Sorry, an error occured, with status ' + response.status);
         }
         props.history.push('/')
         return response.json()
@@ -55,29 +55,29 @@ class App extends React.Component {
   }
 
   goToLogin () {
-    this.props.history.push('/Login')
+    this.props.history.push('/Login');
   }
 
   goToSignup () {
-    this.props.history.push('/Signup')
+    this.props.history.push('/Signup');
   }
 
   setToken = idToken => {
-    localStorage.setItem('token', idToken)
+    localStorage.setItem('token', idToken);
   }
 
   getToken = () => {
     // Retrieves the user token from localStorage
-    return localStorage.getItem('token')
+    return localStorage.getItem('token');
   }
 
   getConfirm = () => {
     // Using jwt-decode npm package to decode the token
     if (this.getToken() !== 'undefined') {
-      let answer = jwtDecode(this.getToken())
-      return answer
+      let answer = jwtDecode(this.getToken());
+      return answer;
     } else {
-      console.log('no token found')
+      console.log('no token found');
     }
   }
 

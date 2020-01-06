@@ -10,15 +10,15 @@ export default class MainPage extends React.Component {
   componentDidMount () {}
 
   goToLogin () {
-    this.props.history.push('/Login')
+    this.props.history.push('/Login');
   }
 
   goToSignup () {
-    this.props.history.push('/Signup')
+    this.props.history.push('/Signup');
   }
 
   goToTheButton () {
-    this.props.history.push('/TheButton')
+    this.props.history.push('/TheButton');
   }
 
   render () {

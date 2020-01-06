@@ -7,16 +7,16 @@ import MyNavbar from './MyNavbar'
 
 export default class Map extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       locations: [],
       loading: false
-    }
-    this.fetchToggle = this.fetchToggle.bind(this)
+    };
+    this.fetchToggle = this.fetchToggle.bind(this);
   }
 
   fetchToggle () {
-    this.setState({ loading: true })
+    this.setState({ loading: true });
     setTimeout(
       function () {
         this.setState({ loading: false })
@@ -26,7 +26,7 @@ export default class Map extends React.Component {
   }
 
   componentDidMount () {
-    this.setState({ loading: true })
+    this.setState({ loading: true });
 
     setTimeout(
       function () {
@@ -46,33 +46,33 @@ export default class Map extends React.Component {
       )
   }
   goToLogin () {
-    this.props.history.push('/Login')
+    this.props.history.push('/Login');
   }
 
   goToSignup () {
-    this.props.history.push('/Signup')
+    this.props.history.push('/Signup');
   }
 
   goToTheButton () {
-    this.props.history.push('/TheButton')
+    this.props.history.push('/TheButton');
   }
 
   Logout () {
     this.setState({ loading: true })
     setTimeout(
       function () {
-        this.setState({ loading: false })
-        localStorage.removeItem('token')
-        localStorage.removeItem('name')
+        this.setState({ loading: false });
+        localStorage.removeItem('token');
+        localStorage.removeItem('name');
 
-        this.props.history.push('/')
+        this.props.history.push('/');
       }.bind(this),
       1000
     )
   }
 
   render () {
-    const { locations } = this.state
+    const { locations } = this.state;
 
     return (
       <div className='App'>

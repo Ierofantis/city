@@ -8,7 +8,7 @@ import MyNavbar from './MyNavbar'
 
 class TheButton extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.textInput = React.createRef();
     this.passInput = React.createRef();
     this.state = { loading: false };
@@ -16,7 +16,7 @@ class TheButton extends React.Component {
     this.state = {
       loading: false,
       showNotification: true
-    }
+    };
     this.fetchToggle = this.fetchToggle.bind(this);
     this.publicVapidKey =
       'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo'
@@ -37,11 +37,11 @@ class TheButton extends React.Component {
   }
 
   componentDidMount () {
-    let auth = localStorage.getItem('token')
+    let auth = localStorage.getItem('token');
    
     this.setState({ loading: false });
     if (!auth) {
-      this.props.history.push('/')
+      this.props.history.push('/');
       alert('You have to register/login first');
     }
   }
@@ -112,7 +112,7 @@ class TheButton extends React.Component {
       );
 
    // Check for service worker and status
-   
+
     if (localStorage.getItem('subscribed') && response.status === 200) {
       if ('serviceWorker' in navigator) {
         fetch(

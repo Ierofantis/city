@@ -8,24 +8,24 @@ import Loader from 'react-loader-spinner'
 
 export default class Login extends React.Component {
   constructor (props) {
-    super(props)
-    this.textInput = React.createRef()
-    this.passInput = React.createRef()
-    this.state = { loading: false }
+    super(props);
+    this.textInput = React.createRef();
+    this.passInput = React.createRef();
+    this.state = { loading: false };
   }
 
   componentDidMount () {
-    let auth = localStorage.getItem('token')
+    let auth = localStorage.getItem('token');
     if (auth) {
-      this.props.history.push('/TheButton')
+      this.props.history.push('/TheButton');
     }
   }
 
   login () {
-    let name = this.textInput.current.value
-    let password = this.passInput.current.value
-    let props = this.props
-    this.setState({ loading: true })
+    let name = this.textInput.current.value;
+    let password = this.passInput.current.value;
+    let props = this.props;
+    this.setState({ loading: true });
 
     fetch('https://danger-button-backend.herokuapp.com/api/users/signin', {
       method: 'post',
@@ -42,47 +42,47 @@ export default class Login extends React.Component {
     })
       .then(function (response) {
         if (response.status !== 200) {
-          this.setState({ loading: false })
-          alert('Sorry, an error occured, with status ' + response.status)
+          this.setState({ loading: false });
+          alert('Sorry, an error occured, with status ' + response.status);
         }
-        props.history.push('/')
-        return response.json()
+        props.history.push('/');
+        return response.json();
       })
       .then(function (data) {
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('name', name)
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('name', name);
 
         // if (data.token !== undefined) {
-        props.history.push('/TheButton')
+        props.history.push('/TheButton');
         //}
       })
   }
 
   setToken = idToken => {
-    localStorage.setItem('token', idToken)
+    localStorage.setItem('token', idToken);
   }
 
   getToken = () => {
     // Retrieves the user token from localStorage
-    return localStorage.getItem('token')
+    return localStorage.getItem('token');
   }
 
   getConfirm = () => {
     // Using jwt-decode npm package to decode the token
     if (this.getToken() !== 'undefined') {
-      let answer = jwtDecode(this.getToken())
-      return answer
+      let answer = jwtDecode(this.getToken());
+      return answer;
     } else {
-      console.log('no token found')
+      console.log('no token found');
     }
   }
 
   goToLogin () {
-    this.props.history.push('/Login')
+    this.props.history.push('/Login');
   }
 
   goToSignup () {
-    this.props.history.push('/Signup')
+    this.props.history.push('/Signup');
   }
   render () {
     return (

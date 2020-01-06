@@ -43,21 +43,18 @@ export default class Login extends React.Component {
       .then(function (response) {
         if (response.status !== 200) {
           this.setState({ loading: false })
-          alert('Sorry, an error occured, try again later')
+          alert('Sorry, an error occured, with status ' + response.status)
         }
+        props.history.push('/')
         return response.json()
       })
       .then(function (data) {
         localStorage.setItem('token', data.token)
         localStorage.setItem('name', name)
-        setTimeout(
-          function () {
-            if (data.token !== undefined) {
-              props.history.push('/TheButton')
-            }
-          }.bind(this),
-          1500
-        )
+
+        // if (data.token !== undefined) {
+        props.history.push('/TheButton')
+        //}
       })
   }
 
@@ -103,13 +100,21 @@ export default class Login extends React.Component {
                           You are not in danger
                         </div>
                         <div>
-                          <Button onClick={() => this.goToLogin()}>
-                            Login
-                          </Button>{' '}
-                          or{' '}
-                          <Button onClick={() => this.goToSignup()}>
+                          <a
+                            className='links'
+                            style={{ margin: '5px' }}
+                            onClick={() => this.goToSignup()}
+                          >
                             Signup
-                          </Button>
+                          </a>
+                          <span>or</span>
+                          <a
+                            className='links'
+                            style={{ margin: '5px' }}
+                            onClick={() => this.goToLogin()}
+                          >
+                            Login
+                          </a>
                         </div>
 
                         <div className='container' style={{ paddingTop: 60 }}>

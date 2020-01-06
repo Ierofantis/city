@@ -35,28 +35,39 @@ export default class MainPage extends React.Component {
                         <h1>Citizen</h1>
                         <div>You are not in danger </div>
                       </div>
-                      <div style={{ paddingTop: 80 }}>
-                        <Button onClick={() => this.goToSignup()}>
+                      <div>
+                        <a
+                          className='links'
+                          style={{ margin: '5px' }}
+                          onClick={() => this.goToSignup()}
+                        >
                           Signup
-                        </Button>{' '}
-                        or{' '}
-                        <Button
+                        </a>
+                        <span>or</span>
+                        <a
+                          className='links'
+                          style={{ margin: '5px' }}
                           onClick={() => this.goToLogin()}
-                          style={{ cursor: 'pointer' }}
                         >
                           Login
-                        </Button>
+                        </a>
                       </div>
                       <div style={{ paddingTop: 120 }}>
                         <h1>Press the alert button </h1>
                       </div>
                       <div style={{ paddingTop: 80 }}>
-                        <Button
-                          style={{ width: 300 }}
-                          onClick={() => this.goToTheButton()}
-                        >
-                          Alert
-                        </Button>
+                        {localStorage.getItem('token') ? (
+                          <Button
+                            style={{ width: 300 }}
+                            onClick={() => this.goToTheButton()}
+                          >
+                            Alert
+                          </Button>
+                        ) : (
+                          <Button style={{ width: 300 }} disabled>
+                            Signup or Login first
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </React.Fragment>

@@ -9,28 +9,28 @@ import MyNavbar from './MyNavbar'
 class TheButton extends React.Component {
   constructor (props) {
     super(props)
-    this.textInput = React.createRef()
-    this.passInput = React.createRef()
-    this.state = { loading: false }
-    this.user = localStorage.getItem('name')
+    this.textInput = React.createRef();
+    this.passInput = React.createRef();
+    this.state = { loading: false };
+    this.user = localStorage.getItem('name');
     this.state = {
       loading: false,
       showNotification: true
     }
-    this.fetchToggle = this.fetchToggle.bind(this)
+    this.fetchToggle = this.fetchToggle.bind(this);
     this.publicVapidKey =
       'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo'
 
     if (localStorage.getItem('subscribed')) {
-      this.setState({ showNotification: false })
+      this.setState({ showNotification: false });
     }
   }
 
   fetchToggle () {
-    this.setState({ loading: true })
+    this.setState({ loading: true });
     setTimeout(
       function () {
-        this.setState({ loading: false })
+        this.setState({ loading: false });
       }.bind(this),
       1000
     )
@@ -38,21 +38,16 @@ class TheButton extends React.Component {
 
   componentDidMount () {
     let auth = localStorage.getItem('token')
-    // this.setState({ loading: true })
-    // setTimeout(
-    //   function() {
-    this.setState({ loading: false })
+   
+    this.setState({ loading: false });
     if (!auth) {
       this.props.history.push('/')
-      alert('You have to register/login first')
+      alert('You have to register/login first');
     }
   }
-  //     .bind(this),
-  //     1500
-  //  );
 
   async send () {
-    console.log('Sending Push...')
+    console.log('Sending Push...');
     await fetch(
       'https://danger-button-backend.herokuapp.com/api/send/subscribe',
       {
@@ -62,41 +57,36 @@ class TheButton extends React.Component {
           'Access-Control-Allow-Origin': '*'
         }
       }
-    )
+    );
   }
 
   Logout () {
-    this.setState({ loading: true })
+    this.setState({ loading: true });
     setTimeout(
       function () {
-        this.setState({ loading: false })
-        localStorage.removeItem('token')
-        localStorage.removeItem('name')
-        this.props.history.push('/')
+        this.setState({ loading: false });
+        localStorage.removeItem('token');
+        localStorage.removeItem('name');
+        this.props.history.push('/');
       }.bind(this),
       1000
     )
   }
 
   postLocation (lon, lat) {
-    let latitude = lat.toString()
-    let longitude = lon.toString()
-    let text = this.textInput.current.value
-    let name = localStorage.getItem('name')
-    this.setState({ loading: true })
+    let latitude = lat.toString();
+    let longitude = lon.toString();
+    let text = this.textInput.current.value;
+    let name = localStorage.getItem('name');
+    this.setState({ loading: true });
+
     setTimeout(
       function () {
-        this.setState({ loading: false })
+        this.setState({ loading: false });
       }.bind(this),
       1000
-    )
+    );
 
-    // Check for service worker
-    if (localStorage.getItem('subscribed')) {
-      if ('serviceWorker' in navigator) {
-        this.send().catch(err => console.error(err))
-      }
-    }
     fetch('https://danger-button-backend.herokuapp.com/api/send/location', {
       method: 'post',
       headers: {
@@ -115,14 +105,30 @@ class TheButton extends React.Component {
       setTimeout(
         function () {
           if (response.status !== 200) {
-            alert('Sorry, an error occured, try again later')
+            alert('Sorry, an error occured, with status '+response.status)
           }
         }.bind(this),
         1500
-      )
+      );
 
-      return response.json()
-    })
+   // Check for service worker and status
+   
+    if (localStorage.getItem('subscribed') && response.status === 200) {
+      if ('serviceWorker' in navigator) {
+        fetch(
+          'https://danger-button-backend.herokuapp.com/api/send/subscribe',
+          {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+              'Access-Control-Allow-Origin': '*'
+            }
+          }
+        );
+      }
+    }
+      return response.json();
+    });
   }
 
   render () {
@@ -178,14 +184,6 @@ class TheButton extends React.Component {
                                 >
                                   Send Location
                                 </Button>
-                                <div style={{ paddingTop: 40 }}>
-                                  <a
-                                    className='links'
-                                    onClick={() => this.Logout()}
-                                  >
-                                    Logout
-                                  </a>
-                                </div>
                               </div>
                             </div>
                           </div>

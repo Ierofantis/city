@@ -39,19 +39,18 @@ class App extends React.Component {
     })
       .then(function (response) {
         if (response.status !== 200) {
-          alert('Sorry, an error occured, try again later')
+          alert('Sorry, an error occured, with status ' + response.status)
         }
+        props.history.push('/')
         return response.json()
       })
       .then(function (data) {
         localStorage.setItem('token', data.token)
         localStorage.setItem('name', name)
-        setTimeout(
-          function () {
-            props.history.push('/TheButton/')
-          }.bind(this),
-          500
-        )
+
+        // if (data.token !== undefined) {
+        props.history.push('/TheButton')
+        // }
       })
   }
 
@@ -95,14 +94,22 @@ class App extends React.Component {
                       <div style={{ padding: 20 }}>
                         <h1>Citizen</h1>
                         <div>You are not in danger</div>
-                        <div>
-                          <Button onClick={() => this.goToSignup()}>
+                        <div style={{ padding: 20 }}>
+                          <a
+                            className='links'
+                            style={{ margin: '5px' }}
+                            onClick={() => this.goToSignup()}
+                          >
                             Signup
-                          </Button>{' '}
-                          or{' '}
-                          <Button onClick={() => this.goToLogin()}>
+                          </a>
+                          <span>or</span>
+                          <a
+                            className='links'
+                            style={{ margin: '5px' }}
+                            onClick={() => this.goToLogin()}
+                          >
                             Login
-                          </Button>
+                          </a>
                         </div>
 
                         <div className='container' style={{ paddingTop: 60 }}>

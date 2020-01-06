@@ -45,12 +45,14 @@ class App extends React.Component {
         return response.json()
       })
       .then(function (data) {
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('name', name)
 
+        if(data){
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('name', name)
+        props.history.push('/')
         // if (data.token !== undefined) {
-        props.history.push('/TheButton')
         // }
+        }
       })
   }
 

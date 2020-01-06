@@ -53,7 +53,7 @@ export default class Login extends React.Component {
         localStorage.setItem('name', name);
 
         // if (data.token !== undefined) {
-        props.history.push('/TheButton');
+        props.history.push('/');
         //}
       })
   }

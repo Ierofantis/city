@@ -35,23 +35,6 @@ export default class MainPage extends React.Component {
                         <h1>Citizen</h1>
                         <div><h2>You are not in danger </h2></div>
                       </div>
-                      {/* <div>
-                        <a
-                          className="links"
-                          style={{ margin: "5px", textDecoration: "underline" }}
-                          onClick={() => this.goToSignup()}
-                        >
-                          Signup
-                        </a>
-                        <span>or</span>
-                        <a
-                          className="links"
-                          style={{ margin: "5px", textDecoration: "underline" }}
-                          onClick={() => this.goToLogin()}
-                        >
-                          Login
-                        </a>
-                      </div> */}
                       <div style={{ paddingTop: 120 }}>
                         {localStorage.getItem("token") ? (
                           <h2>Press the alert button </h2>

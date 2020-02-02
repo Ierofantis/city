@@ -38,7 +38,7 @@ export default class MainPage extends React.Component {
                       <div>
                         <a
                           className='links'
-                          style={{ margin: '5px' }}
+                          style={{ margin: '5px', textDecoration: 'underline' }}
                           onClick={() => this.goToSignup()}
                         >
                           Signup
@@ -46,14 +46,14 @@ export default class MainPage extends React.Component {
                         <span>or</span>
                         <a
                           className='links'
-                          style={{ margin: '5px' }}
+                          style={{ margin: '5px', textDecoration: 'underline' }}
                           onClick={() => this.goToLogin()}
                         >
                           Login
                         </a>
                       </div>
                       <div style={{ paddingTop: 120 }}>
-                        <h1>Press the alert button </h1>
+                {localStorage.getItem('token') ? <h1>Press the alert button </h1> : <h1>Please signup/login first </h1>}
                       </div>
                       <div style={{ paddingTop: 80 }}>
                         {localStorage.getItem('token') ? (

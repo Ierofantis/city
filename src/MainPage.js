@@ -1,62 +1,90 @@
-import React from 'react'
-import './App.css'
-import { ThemeProvider, createTheme, Row, Arwes, Col, Button } from 'arwes'
+import React from "react";
+import "./App.css";
+import { ThemeProvider, createTheme, Row, Arwes, Col, Button } from "arwes";
 
 export default class MainPage extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
   }
 
-  componentDidMount () {}
+  componentDidMount() {}
 
-  goToLogin () {
-    this.props.history.push('/Login');
+  goToLogin() {
+    this.props.history.push("/Login");
   }
 
-  goToSignup () {
-    this.props.history.push('/Signup');
+  goToSignup() {
+    this.props.history.push("/Signup");
   }
 
-  goToTheButton () {
-    this.props.history.push('/TheButton');
+  goToTheButton() {
+    this.props.history.push("/TheButton");
   }
 
-  render () {
+  render() {
     return (
-      <div className='App'>
+      <div className="App">
         <ThemeProvider theme={createTheme()}>
           <Row>
-            <Col s={6} m={8} l={6} offset={['m2', 'l3']}>
+            <Col s={6} m={8} l={6} offset={["m2", "l3"]}>
               <Arwes animate show>
                 {anim => (
                   <React.Fragment>
                     <div>
                       <div style={{ padding: 20 }}>
                         <h1>Citizen</h1>
-                        <div>You are not in danger </div>
+                        <div><h2>You are not in danger </h2></div>
                       </div>
-                      <div>
+                      {/* <div>
                         <a
-                          className='links'
-                          style={{ margin: '5px', textDecoration: 'underline' }}
+                          className="links"
+                          style={{ margin: "5px", textDecoration: "underline" }}
                           onClick={() => this.goToSignup()}
                         >
                           Signup
                         </a>
                         <span>or</span>
                         <a
-                          className='links'
-                          style={{ margin: '5px', textDecoration: 'underline' }}
+                          className="links"
+                          style={{ margin: "5px", textDecoration: "underline" }}
                           onClick={() => this.goToLogin()}
                         >
                           Login
                         </a>
-                      </div>
+                      </div> */}
                       <div style={{ paddingTop: 120 }}>
-                {localStorage.getItem('token') ? <h1>Press the alert button </h1> : <h1>Please signup/login first </h1>}
+                        {localStorage.getItem("token") ? (
+                          <h2>Press the alert button </h2>
+                        ) : (
+                          <h2>
+                            Please{" "}
+                            <a
+                              className="links"
+                              style={{
+                                margin: "5px",
+                                textDecoration: "underline"
+                              }}
+                              onClick={() => this.goToSignup()}
+                            >
+                              Signup
+                            </a>
+                            /{" "}
+                            <a
+                              className="links"
+                              style={{
+                                margin: "5px",
+                                textDecoration: "underline"
+                              }}
+                              onClick={() => this.goToLogin()}
+                            >
+                              Login
+                            </a>
+                            first{" "}
+                          </h2>
+                        )}
                       </div>
                       <div style={{ paddingTop: 80 }}>
-                        {localStorage.getItem('token') ? (
+                        {localStorage.getItem("token") ? (
                           <Button
                             style={{ width: 300 }}
                             onClick={() => this.goToTheButton()}
@@ -77,6 +105,6 @@ export default class MainPage extends React.Component {
           </Row>
         </ThemeProvider>
       </div>
-    )
+    );
   }
 }

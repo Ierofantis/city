@@ -18,12 +18,12 @@ class TheButton extends React.Component {
       showNotification: true
     };
     this.fetchToggle = this.fetchToggle.bind(this);
-    this.publicVapidKey =
-      'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo'
+    // this.publicVapidKey =
+    //   'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo'
 
-    if (localStorage.getItem('subscribed')) {
-      this.setState({ showNotification: false });
-    }
+    // if (localStorage.getItem('subscribed')) {
+    //   this.setState({ showNotification: false });
+    // }
   }
 
   fetchToggle () {
@@ -46,19 +46,19 @@ class TheButton extends React.Component {
     }
   }
 
-  async send () {
-    console.log('Sending Push...');
-    await fetch(
-      'https://danger-button-backend.herokuapp.com/api/send/subscribe',
-      {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          'Access-Control-Allow-Origin': '*'
-        }
-      }
-    );
-  }
+  // async send () {
+  //   console.log('Sending Push...');
+  //   await fetch(
+  //     'http://localhost:8080/api/send/subscribe',
+  //     {
+  //       method: 'POST',
+  //       headers: {
+  //         'content-type': 'application/json',
+  //         'Access-Control-Allow-Origin': '*'
+  //       }
+  //     }
+  //   );
+  // }
 
   Logout () {
     this.setState({ loading: true });
@@ -87,7 +87,7 @@ class TheButton extends React.Component {
       1000
     );
 
-    fetch('https://danger-button-backend.herokuapp.com/api/send/location', {
+    fetch('http://localhost:8080/api/send/location', {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -105,7 +105,7 @@ class TheButton extends React.Component {
       setTimeout(
         function () {
           if (response.status !== 200) {
-            alert('Sorry, an error occured, with status '+response.status)
+            alert('Sorry, an error occured, with status '+ response.status + ' and you have to write a text before the button')
           }
         }.bind(this),
         1500
@@ -113,20 +113,20 @@ class TheButton extends React.Component {
 
    // Check for service worker and status
 
-    if (localStorage.getItem('subscribed') && response.status === 200) {
-      if ('serviceWorker' in navigator) {
-        fetch(
-          'https://danger-button-backend.herokuapp.com/api/send/subscribe',
-          {
-            method: 'POST',
-            headers: {
-              'content-type': 'application/json',
-              'Access-Control-Allow-Origin': '*'
-            }
-          }
-        );
-      }
-    }
+    // if (localStorage.getItem('subscribed') && response.status === 200) {
+    //   if ('serviceWorker' in navigator) {
+    //     fetch(
+    //       'https://danger-button-backend.herokuapp.com/api/send/subscribe',
+    //       {
+    //         method: 'POST',
+    //         headers: {
+    //           'content-type': 'application/json',
+    //           'Access-Control-Allow-Origin': '*'
+    //         }
+    //       }
+    //     );
+    //   }
+    // }
       return response.json();
     });
   }

@@ -24,7 +24,7 @@ class App extends React.Component {
     this.setState({ loading: true });
     const proxyurl = 'https://cors-anywhere.herokuapp.com/';
 
-    fetch(proxyurl + 'https://danger-button-backend.herokuapp.com/api/users', {
+    fetch('http://localhost:8080/api/users', {
       method: 'post',
       headers: {
         'Access-Control-Allow-Origin': '*',
@@ -38,20 +38,25 @@ class App extends React.Component {
       body: JSON.stringify({ name: name, email: email, password: password })
     })
       .then(function (response) {
-        if (response.status !== 200) {
-          alert('Sorry, an error occured, with status ' + response.status);
-        }
-        props.history.push('/')
-        return response.json()
+        setTimeout(
+          function () {
+            if (response.status !== 200) {
+              alert('Sorry, an error occured, with status '+ response.status + ' user already registered.');
+            }
+          }.bind(this),
+          5000
+        );
+        props.history.push('/');
+        return response.json();
       })
       .then(function (data) {
-
-        if(data){
+       if(data && data.token !== undefined){
         localStorage.setItem('token', data.token);
         localStorage.setItem('name', name)
-        props.history.push('/')
-        // if (data.token !== undefined) {
-        // }
+        props.history.push('/button')
+        }
+        else {
+          props.history.push('/');
         }
       })
   }

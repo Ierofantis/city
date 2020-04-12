@@ -27,35 +27,43 @@ export default class Login extends React.Component {
     let props = this.props;
     this.setState({ loading: true });
 
-    fetch('https://danger-button-backend.herokuapp.com/api/users/signin', {
+    fetch('http://localhost:8080/api/users/signin', {
       method: 'post',
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': 'true',
         'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
         'Access-Control-Allow-Headers':
-          'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
-        Accept: 'application/json',
+        'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers',
+      Accept: 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({ name: name, password: password })
     })
       .then(function (response) {
-        if (response.status !== 200) {
-          this.setState({ loading: false });
-          alert('Sorry, an error occured, with status ' + response.status);
-        }
+        setTimeout(
+          function () {
+            if (response.status !== 200) {
+              alert('Sorry, an error occured, with status '+ response.status + ' please write correct credentials');
+            }
+          }.bind(this),
+          1500
+        );
         props.history.push('/');
         return response.json();
       })
       .then(function (data) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('name', name);
-
-        // if (data.token !== undefined) {
-        props.history.push('/');
-        //}
-      })
+        
+         if (data && data.token !== undefined) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('name', name);
+  
+          props.history.push('/button');
+         }
+         else {
+          props.history.push('/');
+         }
+      });
   }
 
   setToken = idToken => {

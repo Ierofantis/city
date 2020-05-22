@@ -87,7 +87,7 @@ class TheButton extends React.Component {
       1000
     );
 
-    fetch('http://localhost:8080/api/send/location', {
+    fetch('https://danger-button-backend.herokuapp.com/api/send/location', {
       method: 'post',
       headers: {
         Accept: 'application/json',

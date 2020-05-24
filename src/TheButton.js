@@ -111,22 +111,22 @@ class TheButton extends React.Component {
         1500
       );
 
-   // Check for service worker and status
+   //Check for service worker and status
 
-    // if (localStorage.getItem('subscribed') && response.status === 200) {
-    //   if ('serviceWorker' in navigator) {
-    //     fetch(
-    //       'https://danger-button-backend.herokuapp.com/api/send/subscribe',
-    //       {
-    //         method: 'POST',
-    //         headers: {
-    //           'content-type': 'application/json',
-    //           'Access-Control-Allow-Origin': '*'
-    //         }
-    //       }
-    //     );
-    //   }
-    // }
+    if (localStorage.getItem('subscribed') && response.status === 200) {
+      if ('serviceWorker' in navigator) {
+        fetch(
+          'https://danger-button-backend.herokuapp.com/api/send/subscribe',
+          {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json',
+              'Access-Control-Allow-Origin': '*'
+            }
+          }
+        );
+      }
+    }
       return response.json();
     });
   }

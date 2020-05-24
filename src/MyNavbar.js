@@ -123,7 +123,7 @@ export default class MyNavbar extends React.Component {
                 Logout
               </NavDropdown.Item>
             </NavDropdown>
-            {/* {renderNavbar ? (
+            {renderNavbar ? (
               <Nav.Link
                 style={{ color: '#F0431E' }}
                 className='nav navbar-nav navbar-right'
@@ -135,7 +135,7 @@ export default class MyNavbar extends React.Component {
               <Nav.Link className='nav navbar-nav navbar-right' disabled>
                 Notify Me!
               </Nav.Link>
-            )} */}
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

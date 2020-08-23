@@ -36,7 +36,7 @@ export default class GetLocation extends React.Component {
       1500
     )
     fetch(
-      'https://danger-button-backend.herokuapp.com/api/send/myLocations/' +
+      'https://immense-beach-20159.herokuapp.com/api/send/myLocations/' +
         localStorage.getItem('name'),
       {
         headers: {

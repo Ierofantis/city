@@ -68,7 +68,7 @@ export default class MyNavbar extends React.Component {
       console.log('Sending Push...');
 
       await fetch(
-        'https://danger-button-backend.herokuapp.com/api/send/subscribe/save',
+        'https://immense-beach-20159.herokuapp.com/api/send/subscribe/save',
         {
           method: 'POST',
           body: JSON.stringify(subscription),

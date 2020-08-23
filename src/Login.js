@@ -27,7 +27,7 @@ export default class Login extends React.Component {
     let props = this.props;
     this.setState({ loading: true });
 
-    fetch('https://danger-button-backend.herokuapp.com/api/users/signin', {
+    fetch('https://immense-beach-20159.herokuapp.com/api/users/signin', {
       method: 'post',
       headers: {
         'Access-Control-Allow-Origin': '*',

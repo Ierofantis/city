@@ -34,7 +34,7 @@ export default class Map extends React.Component {
       }.bind(this),
       1500
     )
-    fetch('https://danger-button-backend.herokuapp.com/api/send/danger')
+    fetch('https://immense-beach-20159.herokuapp.com/api/send/danger')
       .then(res => res.json())
       .then(
         result => {

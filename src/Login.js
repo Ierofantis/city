@@ -162,7 +162,7 @@ export default class Login extends React.Component {
                               </Button>
                               <div style={{ paddingTop: 40 }}>
                                 <a className='links' href='/'>
-                                  Go Back
+                                  Back
                                 </a>
                               </div>
                             </div>

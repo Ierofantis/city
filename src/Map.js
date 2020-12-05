@@ -86,7 +86,7 @@ export default class Map extends React.Component {
                       <div>
                         <div style={{ padding: 20 }}>
                           <MyNavbar {...this.props} />
-                          <h1>Danger Places</h1>
+                          <h1>Dangerous Places</h1>
                           <div>You are not in danger </div>
                         </div>
 

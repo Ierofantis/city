@@ -26,7 +26,7 @@ async function send() {
   // Send Push Notification
   console.log("Sending Push...");
 
-  await fetch("https://immense-beach-20159.herokuapp.com/api/send/subscribe/save", {
+  await fetch("http://localhost:8080/api/send/subscribe/save", {
     method: "POST",
     body: JSON.stringify(subscription),
     headers: {

@@ -6,7 +6,7 @@ import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet'
 import MyNavbar from './MyNavbar'
 
 export default class Map extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       locations: [],
@@ -15,7 +15,7 @@ export default class Map extends React.Component {
     this.fetchToggle = this.fetchToggle.bind(this);
   }
 
-  fetchToggle () {
+  fetchToggle() {
     this.setState({ loading: true });
     setTimeout(
       function () {
@@ -25,7 +25,7 @@ export default class Map extends React.Component {
     )
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.setState({ loading: true });
 
     setTimeout(
@@ -34,7 +34,7 @@ export default class Map extends React.Component {
       }.bind(this),
       1500
     )
-    fetch('https://immense-beach-20159.herokuapp.com/api/send/danger')
+    fetch('http://localhost:8080/api/send/danger')
       .then(res => res.json())
       .then(
         result => {
@@ -45,19 +45,19 @@ export default class Map extends React.Component {
         }
       )
   }
-  goToLogin () {
+  goToLogin() {
     this.props.history.push('/Login');
   }
 
-  goToSignup () {
+  goToSignup() {
     this.props.history.push('/Signup');
   }
 
-  goToTheButton () {
+  goToTheButton() {
     this.props.history.push('/TheButton');
   }
 
-  Logout () {
+  Logout() {
     this.setState({ loading: true })
     setTimeout(
       function () {
@@ -71,7 +71,7 @@ export default class Map extends React.Component {
     )
   }
 
-  render () {
+  render() {
     const { locations } = this.state;
 
     return (
@@ -119,21 +119,21 @@ export default class Map extends React.Component {
                         </Col>
                       </div>
                     ) : (
-                      <div className='container' style={{ paddingTop: 190 }}>
-                        <div className='row'>
-                          <div className='col-lg-4 col-md-4 col-xs-12'></div>
-                          <div className='col-lg-4 col-md-4 col-xs-12'>
-                            <Loader
-                              type='Puff'
-                              color='#00BFFF'
-                              height={100}
-                              width={100}
-                              timeout={3000} //3 secs
-                            />
+                        <div className='container' style={{ paddingTop: 190 }}>
+                          <div className='row'>
+                            <div className='col-lg-4 col-md-4 col-xs-12'></div>
+                            <div className='col-lg-4 col-md-4 col-xs-12'>
+                              <Loader
+                                type='Puff'
+                                color='#00BFFF'
+                                height={100}
+                                width={100}
+                                timeout={3000} //3 secs
+                              />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
+                      )}
                   </React.Fragment>
                 )}
               </Arwes>

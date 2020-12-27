@@ -22,9 +22,8 @@ class App extends React.Component {
     let props = this.props;
 
     this.setState({ loading: true });
-    const proxyurl = 'https://cors-anywhere.herokuapp.com/';
 
-    fetch('https://immense-beach-20159.herokuapp.com/api/users', {
+    fetch('http://localhost:8080/api/users', {
       method: 'post',
       headers: {
         'Access-Control-Allow-Origin': '*',

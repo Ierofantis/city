@@ -123,7 +123,8 @@ class TheButton extends React.Component {
         });
       },
       error => {
-        console.error(error);
+        alert(error)
+
       }
     );
   }

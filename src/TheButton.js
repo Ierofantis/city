@@ -55,83 +55,7 @@ class TheButton extends React.Component {
     )
   }
 
-  postAddress() {
-    let address = this.addressInput.current.value;
-
-    Geocode.setApiKey(`${process.env.REACT_APP_GOOGLE_TOKEN}`);
-
-    // Get latitude & longitude from address.
-    Geocode.fromAddress(address).then(
-      response => {
-        const { lat, lng } = response.results[0].geometry.location;
-        console.log(lat, lng);
-
-        let latitude = lat.toString();
-        let longitude = lng.toString();
-        let text = this.textInput.current.value;
-        let name = localStorage.getItem('name');
-        this.setState({ loading: true });
-
-        setTimeout(
-          function () {
-            this.setState({ loading: false });
-          }.bind(this),
-          1000
-        );
-
-        fetch('http://localhost:8080/api/send/location', {
-          method: 'post',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'x-access-token': localStorage.getItem('token'),
-            'Access-Control-Allow-Origin': '*'
-          },
-          body: JSON.stringify({
-            latitude: latitude,
-            longitude: longitude,
-            name: name,
-            text: text
-          })
-        }).then(function (response) {
-          setTimeout(
-            function () {
-              if (response.status !== 200) {
-                alert('Sorry, an error occured, with status ' + response.status + ' and you have to write a text before the button')
-              }
-            }.bind(this),
-            1500
-          );
-
-          //Check for service worker and status
-
-          if (localStorage.getItem('subscribed') && response.status === 200) {
-            if ('serviceWorker' in navigator) {
-              fetch(
-                'http://localhost:8080/api/send/subscribe',
-                {
-                  method: 'POST',
-                  headers: {
-                    'content-type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                  }
-                }
-              );
-            }
-          }
-          return response.json();
-        });
-      },
-      error => {
-        alert(error)
-
-      }
-    );
-  }
-
-  postLocation(lon, lat) {
-    let latitude = lat.toString();
-    let longitude = lon.toString();
+  postLatLon(latitude, longitude) {
     let text = this.textInput.current.value;
     let name = localStorage.getItem('name');
     this.setState({ loading: true });
@@ -185,6 +109,33 @@ class TheButton extends React.Component {
       }
       return response.json();
     });
+  }
+
+  postAddress() {
+    let address = this.addressInput.current.value;
+
+    Geocode.setApiKey(`${process.env.REACT_APP_GOOGLE_TOKEN}`);
+
+    // Get latitude & longitude from address.
+    Geocode.fromAddress(address).then(
+      response => {
+        const { lat, lng } = response.results[0].geometry.location;
+
+        let latitude = lat.toString();
+        let longitude = lng.toString();
+
+        this.postLatLon(latitude, longitude)
+      },
+      error => {
+        alert(error)
+      }
+    );
+  }
+
+  postLocation(lon, lat) {
+    let latitude = lat.toString();
+    let longitude = lon.toString();
+    this.postLatLon(latitude, longitude)
   }
 
   render() {

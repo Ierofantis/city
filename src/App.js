@@ -23,7 +23,7 @@ class App extends React.Component {
 
     this.setState({ loading: true });
 
-    fetch('http://localhost:8080/api/users', {
+    fetch('https://immense-beach-20159.herokuapp.com/api/users', {
       method: 'post',
       headers: {
         'Access-Control-Allow-Origin': '*',

@@ -67,7 +67,7 @@ class TheButton extends React.Component {
       1000
     );
 
-    fetch('http://localhost:8080/api/send/location', {
+    fetch('https://immense-beach-20159.herokuapp.com/api/send/location', {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -96,7 +96,7 @@ class TheButton extends React.Component {
       if (localStorage.getItem('subscribed') && response.status === 200) {
         if ('serviceWorker' in navigator) {
           fetch(
-            'http://localhost:8080/api/send/subscribe',
+            'https://immense-beach-20159.herokuapp.com/api/send/subscribe',
             {
               method: 'POST',
               headers: {
